@@ -8,5 +8,7 @@
       "path": "./tsconfig.node.json"
     }
   ],
-  "include": ["src"]
+  "include": ["src/**/*.tsx", "src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
+
