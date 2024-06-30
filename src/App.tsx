@@ -126,7 +126,8 @@ function App() {
       {showAddTodo && <NewTodo onAddTodo={handleAddTodo} />}
   
       <ul className="todos-map">
-        {filteredTodos.map((todo) => (
+        {filteredTodos.map((todo) => ( 
+          
           <TodoCard
             key={todo.id}
             todo={todo}
