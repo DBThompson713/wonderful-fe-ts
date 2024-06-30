@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import { Todo } from './../../App'; // Adjust the path based on your actual file structure
 
 interface ProgressBarProps {
   todos: Todo[];
