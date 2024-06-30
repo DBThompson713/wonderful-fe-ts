@@ -60,9 +60,10 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="date">Date:</label>
+      <div className="form-input-section">
+        <label htmlFor="date" className="form-label">Date:</label>
         <DatePicker
+        wrapperClassName="datepicker"
           selected={date}
           onChange={(date: Date | null) => {
             setDate(date);
@@ -71,11 +72,12 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
             }
           }}
           dateFormat="dd/MM/yyyy"
+          className="form-input"
         />
         {dateError && <p className="todo-error-message">{dateError}</p>}
       </div>
-      <div>
-        <label htmlFor="todo">Todo:</label>
+      <div className="form-input-section">
+        <label htmlFor="todo" className="form-label">Todo:</label>
         <input
           type="text"
           id="todo"
@@ -87,6 +89,7 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
               setTodoError('');
             }
           }}
+          className="form-input"
         />
         {todoError && <p className="todo-error-message">{todoError}</p>}
       </div>
