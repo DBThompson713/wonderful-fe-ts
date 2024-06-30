@@ -143,7 +143,7 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
             <p className="todo-todo" style={{ textDecoration: completed ? 'line-through' : 'none' }}>
               {todo.todo}
             </p>
-            <p className="todo-date">{todo.date}</p>
+            <p className="todo-date">Due: {todo.date}</p>
           </>
         )}
       </div>
