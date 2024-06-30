@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { getTodos, deleteTodo, addTodo,Todo } from './api/todos';
+import { getTodos, deleteTodo, addTodo, Todo } from './api/todos';
 import TodoCard from './components/TodoCard';
 import NewTodo from './components/NewTodo';
 import ActionBar from './components/ActionBar';
@@ -60,10 +60,6 @@ function App() {
     setFilteredTodos(sorted);
   };
 
-  useEffect(()=>{
-    console.log('totototototdodod: ',todos)
-  },[])
-
   const handleFilter = (filterBy: string) => {
     let filtered: Todo[] = [...todos];
 
@@ -102,7 +98,7 @@ function App() {
     } catch (error) {
         console.error('Error deleting todo:', error);
     }
-};
+  };
 
   return (
     <div>
