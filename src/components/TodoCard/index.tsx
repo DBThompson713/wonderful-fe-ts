@@ -64,7 +64,7 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
   const handleCancelClick = () => {
     setEditedTodo(todo.todo);
     setEditedDate(new Date(todo.date));
-    setEditingTodoId(null); // Exit edit mode
+    setEditingTodoId(null); 
     setTodoError('');
     setDateError('');
   };

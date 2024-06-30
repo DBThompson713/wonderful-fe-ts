@@ -15,7 +15,6 @@ export async function getTodos(): Promise<Todo[]> {
             throw new Error('Network response was not ok');
         }
         const data = await res.json();
-        // Assuming data is an array of objects with fields id, date, todo, completed
         const todosArr = Object.values(data.data);
         const todos: Todo[] = todosArr.map((todo: any) => ({
             id: todo.id,
