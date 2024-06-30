@@ -45,7 +45,7 @@
 }
 
 .todo-save-button{
-    padding: 5px 15px;
+    padding: 8px 15px;
     border: none;
     background-color: rgb(189, 242, 189);
     color: #625b71;
@@ -59,7 +59,7 @@
 }
 
 .todo-cancel-button{
-    padding: 5px 15px;
+    padding: 6px 15px;
     border: none;
     background-color: rgb(253, 182, 182);
     color: #625b71;

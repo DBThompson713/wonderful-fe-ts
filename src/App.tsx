@@ -4,6 +4,7 @@ import { getTodos, deleteTodo, addTodo, updateTodo } from './api/todos';
 import TodoCard from './components/TodoCard';
 import NewTodo from './components/NewTodo';
 import ActionBar from './components/ActionBar';
+import Tutorial from './components/Tutorial';
 
 interface Todo {
   id: number;
@@ -20,25 +21,26 @@ function App() {
 
   useEffect(() => {
     getTodos().then((data) => {
-      setTodos(data);
-      setFilteredTodos(data);
+      const sortedTodos = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      setTodos(sortedTodos);
+      setFilteredTodos(sortedTodos);
     });
   }, []);
 
-  useEffect(()=>{
-    if(editingTodoId !==null){
-      setShowAddTodo(false)
+  useEffect(() => {
+    if (editingTodoId !== null) {
+      setShowAddTodo(false);
     }
-  },[editingTodoId])
+  }, [editingTodoId]);
 
-  useEffect(()=>{
-    if(showAddTodo){
-      setEditingTodoId(null)
+  useEffect(() => {
+    if (showAddTodo) {
+      setEditingTodoId(null);
     }
-  },[showAddTodo])
+  }, [showAddTodo]);
 
   const handleSearch = (searchTerm: string) => {
-    const filtered = todos.filter((todo) => 
+    const filtered = todos.filter((todo) =>
       todo.todo.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredTodos(filtered);
@@ -62,8 +64,7 @@ function App() {
     let filtered;
     if (filterBy === 'completed') {
       filtered = todos.filter((todo) => todo.completed);
-    } 
-    else if (filterBy === 'overdue') {
+    } else if (filterBy === 'overdue') {
       filtered = todos.filter((todo) => !todo.completed && new Date(todo.date) < new Date());
     } else {
       filtered = todos;
@@ -74,8 +75,9 @@ function App() {
   const handleAddTodo = async (newTodo: Todo) => {
     try {
       const updatedTodos = await addTodo(newTodo);
-      setTodos(updatedTodos);
-      setFilteredTodos(updatedTodos);
+      const sortedTodos = updatedTodos.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      setTodos(sortedTodos);
+      setFilteredTodos(sortedTodos);
       setShowAddTodo(false);
     } catch (error) {
       console.error('Error adding todo:', error);
@@ -96,6 +98,7 @@ function App() {
   return (
     <div>
       <h1 className="todos-titles">Todos</h1>
+      <Tutorial />
       <ActionBar 
         onSearch={handleSearch}
         onSort={handleSort}

@@ -55,16 +55,6 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
           onChange={(e) => setTodo(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="completed">Completed:</label>
-        <input
-          type="checkbox"
-          id="completed"
-          name="completed"
-          checked={completed}
-          onChange={(e) => setCompleted(e.target.checked)}
-        />
-      </div>
       <button className="newTodo-button"type="submit">Add Todo</button>
     </form>
   );

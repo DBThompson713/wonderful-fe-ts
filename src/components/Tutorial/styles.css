@@ -1,0 +1,36 @@
+.tutorial {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    max-width: 442px;
+    cursor: pointer;
+    color: #625b71;
+    margin-bottom:10px;
+  }
+  
+  .tutorial-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .tutorial-content {
+    margin-top: 10px;
+    text-align: left;
+  }
+  
+  .got-it-button {
+    display: block;
+    margin: 10px auto;
+    padding: 5px 10px;
+    background-color: #eaddff;
+    color: #625b71;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .got-it-button:hover {
+    background-color: #CAB0F5;
+  }
+  
