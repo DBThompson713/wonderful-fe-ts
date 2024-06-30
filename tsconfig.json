@@ -19,8 +19,6 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
     "noEmit": false
   },
-  "files": [],
-  "references": [],
   "include": [
     "src/**/*.tsx",
     "src/**/*.ts"
