@@ -19,10 +19,11 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
   const [date, setDate] = useState<Date | null>(null);
   const [completed, setCompleted] = useState(false);
   const [todoError, setTodoError] = useState<string>('');
+  const [dateError, setDateError] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateTodoInput()) {
+    if (validateTodoInput() && validateDate()) {
       const newTodo: Todo = {
         id: Date.now(),
         date: date ? date.toISOString().split('T')[0] : '',
@@ -34,6 +35,7 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
       setDate(null);
       setCompleted(false);
       setTodoError('');
+      setDateError('');
     }
   };
 
@@ -51,15 +53,32 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
     return true;
   };
 
+  const validateDate = (): boolean => {
+    if (!date) {
+      setDateError('Please select a date');
+      return false;
+    } else if (date < new Date()) {
+      setDateError('Date must be today or in the future');
+      return false;
+    }
+    return true;
+  };
+
   return (
     <form className="form" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="date">Date:</label>
         <DatePicker
           selected={date}
-          onChange={(date: Date) => setDate(date)}
+          onChange={(date: Date) => {
+            setDate(date);
+            if (dateError) {
+              setDateError('');
+            }
+          }}
           dateFormat="dd/MM/yyyy"
         />
+        {dateError && <p className="todo-error-message">{dateError}</p>}
       </div>
       <div>
         <label htmlFor="todo">Todo:</label>

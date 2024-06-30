@@ -25,6 +25,7 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
   const [editedTodo, setEditedTodo] = useState(todo.todo);
   const [editedDate, setEditedDate] = useState<Date | null>(new Date(todo.date));
   const [todoError, setTodoError] = useState<string>('');
+  const [dateError, setDateError] = useState<string>('');
 
   useEffect(() => {
     setCompleted(todo.completed);
@@ -33,6 +34,7 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
   useEffect(() => {
     if (!isEditing) {
       setTodoError('');
+      setDateError('');
     }
   }, [isEditing]);
 
@@ -54,7 +56,7 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
   };
 
   const handleSaveClick = async () => {
-    if (validateEditedTodo()) {
+    if (validateEditedTodo() && validateEditedDate()) {
       const formattedDate = editedDate?.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
       try {
         await updateTodo(todo.id.toString(), { todo: editedTodo, date: formattedDate || '' });
@@ -71,6 +73,7 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
     setEditedDate(new Date(todo.date));
     setEditingTodoId(null); // Exit edit mode
     setTodoError('');
+    setDateError('');
   };
 
   const handleEditClick = () => {
@@ -86,6 +89,17 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
       return false;
     } else if (!editedTodo.replace(/\s/g, '').length) {
       setTodoError('Todo cannot consist only of spaces');
+      return false;
+    }
+    return true;
+  };
+
+  const validateEditedDate = (): boolean => {
+    if (!editedDate) {
+      setDateError('Please select a date');
+      return false;
+    } else if (editedDate < new Date()) {
+      setDateError('Date must be today or in the future');
       return false;
     }
     return true;
@@ -121,6 +135,7 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
               onChange={(date: Date | null) => setEditedDate(date)}
               dateFormat="dd/MM/yyyy"
             />
+            {dateError && <p className="todo-error-message">{dateError}</p>}
             {todoError && <p className="todo-error-message">{todoError}</p>}
           </>
         ) : (
