@@ -63,10 +63,19 @@ function App() {
   const handleFilter = (filterBy: string) => {
     let filtered: Todo[] = [...todos];
 
-    if (filterBy === 'completed') {
-      filtered = todos.filter((todo) => todo.completed);
-    } else if (filterBy === 'overdue') {
-      filtered = todos.filter((todo) => !todo.completed && new Date(todo.date) < new Date());
+    switch (filterBy) {
+      case 'completed':
+        filtered = todos.filter((todo) => todo.completed);
+        break;
+      case 'overdue':
+        filtered = todos.filter((todo) => !todo.completed && new Date(todo.date) < new Date());
+        break;
+      case 'pending':
+        filtered = todos.filter((todo) => !todo.completed);
+        break;
+      default:
+        filtered = todos;
+        break;
     }
 
     setFilteredTodos(filtered);
