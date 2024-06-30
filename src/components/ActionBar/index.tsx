@@ -44,12 +44,11 @@ const ActionBar: React.FC<ActionBarProps> = ({ onSearch, onSort, onFilter, onAdd
             <option value="all">All</option>
             <option value="completed">Completed</option>
             <option value="overdue">Overdue</option>
+            <option value="pending">Pending</option>
           </select>
         </div>
         <button onClick={onAdd}>{showAddTodo ? "-" : "+"}</button>
       </div>
-
-
     </div>
   );
 };
