@@ -4,6 +4,8 @@ export interface Todo {
     id: string;
     title: string;
     completed: boolean;
+    date: string;  
+    todo: string; 
 }
 
 export async function getTodos(): Promise<Todo[]> {
