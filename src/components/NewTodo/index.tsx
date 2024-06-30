@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.css';
-
-interface Todo {
-  id: number;
-  date: string;
-  todo: string;
-  completed: boolean;
-}
+import { Todo } from './../../App';
 
 interface NewTodoProps {
   onAddTodo: (newTodo: Todo) => void;
@@ -25,8 +19,8 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
     e.preventDefault();
     if (validateTodoInput() && validateDate()) {
       const newTodo: Todo = {
-        id: Date.now(),
-        date: date ? date.toISOString().split('T')[0] : '',
+        id: Date.now().toString(), 
+        date: date ? date.toISOString().split('T')[0] : '', 
         todo,
         completed,
       };
@@ -70,7 +64,7 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
         <label htmlFor="date">Date:</label>
         <DatePicker
           selected={date}
-          onChange={(date: Date) => {
+          onChange={(date: Date | null) => {
             setDate(date);
             if (dateError) {
               setDateError('');
