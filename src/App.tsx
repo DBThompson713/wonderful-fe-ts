@@ -7,7 +7,7 @@ import ActionBar from './components/ActionBar';
 import Tutorial from './components/Tutorial';
 import ProgressBar from './components/ProgressBar';
 
-interface Todo {
+export interface Todo {
   id: string; 
   date: string;
   todo: string;
