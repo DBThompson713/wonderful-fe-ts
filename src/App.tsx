@@ -102,14 +102,14 @@ function App() {
 
   const handleDelete = async (id: string) => { 
     try {
-      await deleteTodo(id);
-      const updatedTodos = todos.filter((todo) => todo.id !== id);
-      setTodos(updatedTodos);
-      setFilteredTodos(updatedTodos);
+        await deleteTodo(id);
+        const updatedTodos = todos.filter((todo) => todo.id !== id);
+        setTodos(updatedTodos);
+        setFilteredTodos(updatedTodos);
     } catch (error) {
-      console.error('Error deleting todo:', error);
+        console.error('Error deleting todo:', error);
     }
-  };
+};
 
   return (
     <div>

@@ -81,16 +81,19 @@ export async function updateTodo(
 ): Promise<Todo[]> {
     try {
         const res = await fetch(`${apiBaseUrl}/get-todo/${id}`);
-
         if (!res.ok) {
             throw new Error('Network response was not ok');
         }
+
         const existingTodo: Todo = await res.json();
-        const updatedTodo = { ...existingTodo.parsedData, ...updatedFields };
-        
-        const updateRes = await fetch(`${apiBaseUrl}/update-todo/`, {
+        console.log('Existing Todo:', existingTodo);
+
+        const updatedTodoData = { ...existingTodo.parsedData, ...updatedFields };
+        console.log('Updated Todo Data:', updatedTodoData);
+
+        const updateRes = await fetch(`${apiBaseUrl}/update-todo`, {
             method: 'PATCH',
-            body: JSON.stringify(updatedTodo),
+            body: JSON.stringify(updatedTodoData),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
@@ -103,7 +106,7 @@ export async function updateTodo(
         const allTodos = await getTodos();
         return allTodos;
     } catch (err) {
-        console.log('error:', err);
+        console.error('Error updating todo:', err);
         throw err;
     }
 }
