@@ -7,9 +7,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 interface Props {
   todo: Todo;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
   isEditing: boolean;
-  setEditingTodoId: (id: number | null) => void;
+  setEditingTodoId: (id: string | null) => void;
   isAnotherTodoEditing: boolean;
 }
 
