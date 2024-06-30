@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
-import { updateTodo,Todo } from '../../api/todos';
+import { updateTodo, Todo } from '../../api/todos';
 import editIcon from './../../assets/edit30.png';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -98,8 +98,10 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
     return true;
   };
 
+  const isOverdue = new Date(todo.date) < new Date();
+
   return (
-    <div className={`todo-card ${isAnotherTodoEditing ? 'grey-out' : ''}`}>
+    <div className={`todo-card ${isAnotherTodoEditing ? 'grey-out' : ''}`} style={{ backgroundColor: completed ? '' : (isOverdue ? '#fae3e3' : '#ffffff') }}>
       <label>
         {!isEditing && <input
           className="todo-checkbox"
@@ -133,8 +135,10 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
           </>
         ) : (
           <>
+          {isOverdue && !completed && <span className="overdue-tag">Overdue</span>}
             <p className="todo-todo" style={{ textDecoration: completed ? 'line-through' : 'none' }}>
               {todo.todo}
+              
             </p>
             <p className="todo-date">Due: {todo.date}</p>
           </>
