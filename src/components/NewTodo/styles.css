@@ -1,0 +1,43 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color:#625b71;
+    border: 1px solid #ccc;
+    padding:16px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+label {
+    margin-right: 10px;
+    color:#625b71
+}
+
+input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color:#625b71
+}
+
+input[type="checkbox"] {
+    margin-left: 5px;
+}
+
+
+.newTodo-button{
+    padding: 10px 15px;
+    border: none;
+    background-color: #EADDFF;
+    color: #625b71;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #cab0f5;
+}

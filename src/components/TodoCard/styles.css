@@ -1,8 +1,91 @@
 .todo-card{
     border:1px solid #fff;
-    padding: 20px;
+    padding: 8px 16px;
     margin-bottom: 20px;
-    width:40vw;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: flex-start;
 }
+
+.todo-checkbox{
+    background-color: #fff;
+}
+
+.todo-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 100%;
+    color:#625b71;
+}
+
+.todo-date{
+    margin:0;
+}
+
+.todo-edit-icon{
+    width:20px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.todo-todo{
+    font-size:32px;
+    margin:0;
+}
+.todo-delete-button{
+    color:#625b71;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: auto;
+    background-color:transparent;
+}
+
+.todo-save-button{
+    padding: 5px 15px;
+    border: none;
+    background-color: rgb(189, 242, 189);
+    color: #625b71;
+    border-radius: 4px;
+    cursor: pointer;
+    width:81px;
+}
+
+.todo-save-button:hover{
+    background-color: rgb(137, 244, 137);
+}
+
+.todo-cancel-button{
+    padding: 5px 15px;
+    border: none;
+    background-color: rgb(253, 182, 182);
+    color: #625b71;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    width:81px;
+}
+
+.todo-cancel-button:hover{
+    background-color: rgb(254, 128, 128);
+}
+
+.todo-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color:#625b71
+}
+.todo-date-picker{
+    width:100%;
+    margin-top:10px;
+    max-width: 296px;
+}
+
+.todo-card.grey-out {
+    opacity: 0.5;
+    pointer-events: none;
+  }

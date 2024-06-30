@@ -1,0 +1,89 @@
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.action-bar input,
+.action-bar select {
+  padding: 8px;
+  background-color: #f9f9f9;
+  color: #625b71;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.action-bar select {
+  flex: 1; /* Take remaining space */
+  margin-left: 10px; /* Spacing between elements */
+}
+
+.action-bar-buttons {
+  display: flex;
+  gap: 10px; /* Spacing between buttons */
+}
+
+.action-bar-buttons button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #eaddff;
+  color: #625b71;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.action-bar-buttons button:hover {
+  background-color: #d5c4e7;
+}
+
+input[type="text"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color:#625b71
+}
+
+@media only screen and (max-width: 600px) {
+  .action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  
+
+  .action-bar-buttons {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .action-bar-buttons button {
+    width: 100%;
+  }
+
+  .action-bar-buttons select {
+    width: 100%;
+    margin-left: 0; 
+    margin-top:10px; 
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .action-bar-buttons select {
+    width: calc(50% - 5px); /* Adjusted width calculation */
+  }
+
+  .action-bar-buttons button {
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
+/* @media only screen and (max-width: 300px) {
+  .action-bar-buttons select {
+    width: 100%;
+  }
+} */
