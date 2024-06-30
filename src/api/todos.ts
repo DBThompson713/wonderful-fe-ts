@@ -85,11 +85,9 @@ export async function updateTodo(
             throw new Error('Network response was not ok');
         }
 
-        const existingTodo: Todo = await res.json();
-        console.log('Existing Todo:', existingTodo);
+        const existingTodo: Todo = await res.json() as Todo;
 
-        const updatedTodoData = { ...existingTodo.parsedData, ...updatedFields };
-        console.log('Updated Todo Data:', updatedTodoData);
+        const updatedTodoData = { ...existingTodo, ...updatedFields };
 
         const updateRes = await fetch(`${apiBaseUrl}/update-todo`, {
             method: 'PATCH',
