@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import { Todo } from './../../App'; 
+import { Todo } from './../../api/todos'; 
 
 interface ProgressBarProps {
   todos: Todo[];
