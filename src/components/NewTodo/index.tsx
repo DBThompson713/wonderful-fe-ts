@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.css';
-import { Todo } from './../../App';
+import { Todo } from './../../api/todos';
 
 interface NewTodoProps {
   onAddTodo: (newTodo: Todo) => void;
