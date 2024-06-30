@@ -8,7 +8,7 @@ import Tutorial from './components/Tutorial';
 import ProgressBar from './components/ProgressBar';
 
 interface Todo {
-  id: number;
+  id: string; 
   date: string;
   todo: string;
   completed: boolean;
@@ -18,19 +18,23 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
   const [showAddTodo, setShowAddTodo] = useState(false);
-  const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
+  const [editingTodoId, setEditingTodoId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getTodos();
-      const sortedTodos = data.sort((a, b) => {
-        if (a.completed !== b.completed) {
-          return a.completed ? 1 : -1; 
-        }
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
-      });
-      setTodos(sortedTodos);
-      setFilteredTodos(sortedTodos);
+      try {
+        const data = await getTodos();
+        const sortedTodos = data.sort((a, b) => {
+          if (a.completed !== b.completed) {
+            return a.completed ? 1 : -1;
+          }
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+        setTodos(sortedTodos);
+        setFilteredTodos(sortedTodos);
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
     };
 
     fetchData();
@@ -46,7 +50,7 @@ function App() {
   const handleSort = (sortBy: string) => {
     const sorted = [...filteredTodos].sort((a, b) => {
       if (a.completed !== b.completed) {
-        return a.completed ? 1 : -1; 
+        return a.completed ? 1 : -1;
       }
 
       if (sortBy === 'dateAsc') {
@@ -62,6 +66,10 @@ function App() {
 
     setFilteredTodos(sorted);
   };
+
+  useEffect(()=>{
+    console.log('totototototdodod: ',todos)
+  },[])
 
   const handleFilter = (filterBy: string) => {
     let filtered: Todo[] = [...todos];
@@ -80,7 +88,7 @@ function App() {
       const updatedTodos = await addTodo(newTodo);
       const sortedTodos = updatedTodos.sort((a, b) => {
         if (a.completed !== b.completed) {
-          return a.completed ? 1 : -1; 
+          return a.completed ? 1 : -1;
         }
         return new Date(a.date).getTime() - new Date(b.date).getTime();
       });
@@ -92,9 +100,9 @@ function App() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => { 
     try {
-      await deleteTodo(id.toString());
+      await deleteTodo(id);
       const updatedTodos = todos.filter((todo) => todo.id !== id);
       setTodos(updatedTodos);
       setFilteredTodos(updatedTodos);

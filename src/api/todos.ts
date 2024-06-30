@@ -2,23 +2,36 @@ const apiBaseUrl = 'http://localhost:8000';
 
 export interface Todo {
     id: string;
-    title: string;
     completed: boolean;
-    date: string;  
-    todo: string; 
+    date: string;
+    todo: string;
 }
 
 export async function getTodos(): Promise<Todo[]> {
-    const res = await fetch(`${apiBaseUrl}/get-todos`);
-    if (!res.ok) {
-        throw new Error('Network response was not ok');
+    try {
+        const res = await fetch(`${apiBaseUrl}/get-todos`);
+        if (!res.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await res.json();
+        const todosArr = Object.values(data.data);
+        if (!Array.isArray(todosArr)) {
+            throw new Error('Expected an array of todos');
+        }
+        const todos: Todo[] = todosArr.map((item: any) => ({
+            id: item.id.toString(),
+            completed: item.completed,
+            date: item.date,
+            todo: item.todo
+        }));
+        return todos;
+    } catch (error) {
+        console.error('Error fetching todos:', error);
+        throw error;
     }
-    const data = await res.json();
-    const todos = Object.values(data.data);
-    return todos;
 }
 
-export async function addTodo(todoObj: object): Promise<Todo[]> {
+export async function addTodo(todoObj: Partial<Todo>): Promise<Todo[]> {
     try {
         const res = await fetch(`${apiBaseUrl}/add-todo`, {
             method: 'POST',
@@ -35,12 +48,12 @@ export async function addTodo(todoObj: object): Promise<Todo[]> {
         const allTodos = await getTodos();
         return allTodos;
     } catch (err) {
-        console.log('error:', err);
+        console.error('Error adding todo:', err);
         throw err;
     }
 }
 
-export const deleteTodo = async (id: string) => {
+export const deleteTodo = async (id: string): Promise<Todo[]> => {
     const deleteUrl = `${apiBaseUrl}/delete-todo/${id}`;
 
     try {
@@ -68,16 +81,18 @@ export async function updateTodo(
     updatedFields: Partial<Todo>
 ): Promise<Todo[]> {
     try {
+        // Fetch the existing todo
         const res = await fetch(`${apiBaseUrl}/get-todo/${id}`);
-
         if (!res.ok) {
             throw new Error('Network response was not ok');
         }
-        const existingTodo: Todo = await res.json();
-        const updatedTodo = { ...existingTodo.parsedData, ...updatedFields };
-        
+        const existingTodo: Partial<Todo> = await res.json();
 
-        const updateRes = await fetch(`${apiBaseUrl}/update-todo/`, {
+        // Merge updated fields with existing todo
+        const updatedTodo: Partial<Todo> = { ...existingTodo, ...updatedFields };
+
+        // Update the todo on the server
+        const updateRes = await fetch(`${apiBaseUrl}/update-todo/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(updatedTodo),
             headers: {
@@ -89,10 +104,11 @@ export async function updateTodo(
             throw new Error('Network response was not ok');
         }
 
+        // Fetch all todos again after update
         const allTodos = await getTodos();
         return allTodos;
     } catch (err) {
-        console.log('error:', err);
+        console.error('Error updating todo:', err);
         throw err;
     }
 }
