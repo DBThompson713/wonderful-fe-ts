@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { getTodos, deleteTodo, addTodo } from './api/todos';
+import { getTodos, deleteTodo, addTodo,Todo } from './api/todos';
 import TodoCard from './components/TodoCard';
 import NewTodo from './components/NewTodo';
 import ActionBar from './components/ActionBar';
 import Tutorial from './components/Tutorial';
 import ProgressBar from './components/ProgressBar';
-
-export interface Todo {
-  id: string; 
-  date: string;
-  todo: string;
-  completed: boolean;
-}
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
