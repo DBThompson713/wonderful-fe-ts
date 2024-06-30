@@ -25,6 +25,18 @@ function App() {
     });
   }, []);
 
+  useEffect(()=>{
+    if(editingTodoId !==null){
+      setShowAddTodo(false)
+    }
+  },[editingTodoId])
+
+  useEffect(()=>{
+    if(showAddTodo){
+      setEditingTodoId(null)
+    }
+  },[showAddTodo])
+
   const handleSearch = (searchTerm: string) => {
     const filtered = todos.filter((todo) => 
       todo.todo.toLowerCase().includes(searchTerm.toLowerCase())
