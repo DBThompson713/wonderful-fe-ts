@@ -8,14 +8,27 @@ export interface Todo {
 }
 
 export async function getTodos(): Promise<Todo[]> {
-    const res = await fetch(`${apiBaseUrl}/get-todos`);
-    if (!res.ok) {
-        throw new Error('Network response was not ok');
+    try {
+        const res = await fetch(`${apiBaseUrl}/get-todos`);
+        if (!res.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await res.json();
+        // Assuming data is an array of objects with fields id, date, todo, completed
+        const todosArr = Object.values(data.data);
+        const todos: Todo[] = todosArr.map((todo: any) => ({
+            id: todo.id,
+            date: todo.date,
+            todo: todo.todo,
+            completed: todo.completed,
+        }));
+        return todos;
+    } catch (error) {
+        console.error('Error fetching todos:', error);
+        throw error;
     }
-    const data = await res.json();
-    const todos = Object.values(data.data);
-    return todos;
 }
+
 
 export async function addTodo(todoObj: object): Promise<Todo[]> {
     try {
@@ -75,7 +88,6 @@ export async function updateTodo(
         const existingTodo: Todo = await res.json();
         const updatedTodo = { ...existingTodo.parsedData, ...updatedFields };
         
-
         const updateRes = await fetch(`${apiBaseUrl}/update-todo/`, {
             method: 'PATCH',
             body: JSON.stringify(updatedTodo),
