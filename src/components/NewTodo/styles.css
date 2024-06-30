@@ -38,6 +38,11 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+.todo-error-message{
+    color:red;
+    font-size: 0.8em;
+}
+
 button:hover {
     background-color: #cab0f5;
 }

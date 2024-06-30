@@ -24,11 +24,17 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
   const [completed, setCompleted] = useState(todo.completed);
   const [editedTodo, setEditedTodo] = useState(todo.todo);
   const [editedDate, setEditedDate] = useState<Date | null>(new Date(todo.date));
-  console.log(todo.date)
+  const [todoError, setTodoError] = useState<string>('');
 
   useEffect(() => {
     setCompleted(todo.completed);
   }, [todo.completed]);
+
+  useEffect(() => {
+    if (!isEditing) {
+      setTodoError('');
+    }
+  }, [isEditing]);
 
   const handleDeleteClick = () => {
     onDelete(todo.id);
@@ -48,10 +54,10 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
   };
 
   const handleSaveClick = async () => {
-    if (editedDate) {
-      const formattedDate = editedDate.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    if (validateEditedTodo()) {
+      const formattedDate = editedDate?.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
       try {
-        await updateTodo(todo.id.toString(), { todo: editedTodo, date: formattedDate });
+        await updateTodo(todo.id.toString(), { todo: editedTodo, date: formattedDate || '' });
         setEditingTodoId(null);
         window.location.reload(); 
       } catch (error) {
@@ -64,10 +70,25 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
     setEditedTodo(todo.todo);
     setEditedDate(new Date(todo.date));
     setEditingTodoId(null); // Exit edit mode
+    setTodoError('');
   };
 
   const handleEditClick = () => {
     setEditingTodoId(todo.id);
+  };
+
+  const validateEditedTodo = (): boolean => {
+    if (!editedTodo.trim()) {
+      setTodoError('Todo cannot be blank');
+      return false;
+    } else if (editedTodo.length > 25) {
+      setTodoError('Todo cannot be more than 25 characters');
+      return false;
+    } else if (!editedTodo.replace(/\s/g, '').length) {
+      setTodoError('Todo cannot consist only of spaces');
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -87,7 +108,12 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
               className="todo-input"
               type="text"
               value={editedTodo}
-              onChange={(e) => setEditedTodo(e.target.value)}
+              onChange={(e) => {
+                setEditedTodo(e.target.value);
+                if (todoError) {
+                  setTodoError('');
+                }
+              }}
             />
             <DatePicker
               className="todo-date-picker"
@@ -95,6 +121,7 @@ const TodoCard: React.FC<Props> = ({ todo, onDelete, isEditing, setEditingTodoId
               onChange={(date: Date | null) => setEditedDate(date)}
               dateFormat="dd/MM/yyyy"
             />
+            {todoError && <p className="todo-error-message">{todoError}</p>}
           </>
         ) : (
           <>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './styles.css'
+import './styles.css';
 
 interface Todo {
   id: number;
@@ -18,13 +18,14 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
   const [todo, setTodo] = useState('');
   const [date, setDate] = useState<Date | null>(null);
   const [completed, setCompleted] = useState(false);
+  const [todoError, setTodoError] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (todo && date) {
+    if (validateTodoInput()) {
       const newTodo: Todo = {
-        id: Date.now(), 
-        date: date.toISOString().split('T')[0],
+        id: Date.now(),
+        date: date ? date.toISOString().split('T')[0] : '',
         todo,
         completed,
       };
@@ -32,7 +33,22 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
       setTodo('');
       setDate(null);
       setCompleted(false);
+      setTodoError('');
     }
+  };
+
+  const validateTodoInput = (): boolean => {
+    if (!todo.trim()) {
+      setTodoError('Todo cannot be blank');
+      return false;
+    } else if (todo.length > 25) {
+      setTodoError('Todo cannot be more than 25 characters');
+      return false;
+    } else if (!todo.replace(/\s/g, '').length) {
+      setTodoError('Todo cannot be only of spaces');
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -52,10 +68,16 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
           id="todo"
           name="todo"
           value={todo}
-          onChange={(e) => setTodo(e.target.value)}
+          onChange={(e) => {
+            setTodo(e.target.value);
+            if (todoError) {
+              setTodoError('');
+            }
+          }}
         />
+        {todoError && <p className="todo-error-message">{todoError}</p>}
       </div>
-      <button className="newTodo-button"type="submit">Add Todo</button>
+      <button className="newTodo-button" type="submit">Add Todo</button>
     </form>
   );
 };
