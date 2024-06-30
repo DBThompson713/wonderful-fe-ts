@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
-import { updateTodo } from '../../api/todos';
+import { updateTodo,Todo } from '../../api/todos';
 import editIcon from './../../assets/edit30.png';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-interface Todo {
-  id: number;
-  date: string;
-  todo: string;
-  completed: boolean;
-}
 
 interface Props {
   todo: Todo;
