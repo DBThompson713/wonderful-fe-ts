@@ -16,6 +16,7 @@
     "moduleDetection": "force",
     // "noEmit": false,
     "jsx": "react-jsx",
+    "esModuleInterop": true,
 
     /* Linting */
     "strict": true,
