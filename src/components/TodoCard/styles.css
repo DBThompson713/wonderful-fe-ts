@@ -1,14 +1,14 @@
-.todo-card{
-    border:1px solid #fff;
+.todo-card {
+    border: 1px solid #fff;
     padding: 8px 16px;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
 }
 
-.todo-checkbox{
+.todo-checkbox {
     background-color: #fff;
 }
 
@@ -17,53 +17,53 @@
     flex-direction: column;
     gap: 0px;
     width: 100%;
-    color:#625b71;
+    color: #625b71;
 }
 
-.todo-date{
-    margin:0;
-    font-size:12px;
+.todo-date {
+    margin: 0;
+    font-size: 12px;
 }
 
-.todo-edit-icon{
-    width:20px;
-    cursor:pointer;
-    margin-top:10px;
+.todo-edit-icon {
+    width: 20px;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-.todo-todo{
-    font-size:32px;
-    margin:0;
+.todo-todo {
+    font-size: 32px;
+    margin: 0;
 }
-.todo-delete-button{
-    color:#625b71;
+.todo-delete-button {
+    color: #625b71;
     border: none;
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
     margin-left: auto;
-    background-color:transparent;
+    background-color: transparent;
 }
-.todo-delete-button:hover{
- color:red;
-    background-color:transparent;
+.todo-delete-button:hover {
+    color: red;
+    background-color: transparent;
 }
 
-.todo-save-button{
+.todo-save-button {
     padding: 8px 15px;
     border: none;
     background-color: rgb(189, 242, 189);
     color: #625b71;
     border-radius: 4px;
     cursor: pointer;
-    width:81px;
+    width: 81px;
 }
 
-.todo-save-button:hover{
+.todo-save-button:hover {
     background-color: rgb(137, 244, 137);
 }
 
-.todo-cancel-button{
+.todo-cancel-button {
     padding: 6px 15px;
     border: none;
     background-color: rgb(253, 182, 182);
@@ -71,10 +71,10 @@
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
-    width:81px;
+    width: 81px;
 }
 
-.todo-cancel-button:hover{
+.todo-cancel-button:hover {
     background-color: rgb(254, 128, 128);
 }
 
@@ -82,15 +82,22 @@
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    color:#625b71
+    color: #625b71;
 }
-.todo-date-picker{
-    width:100%;
-    margin-top:10px;
+.todo-date-picker {
+    width: 100%;
+    margin-top: 10px;
     max-width: 296px;
 }
 
 .todo-card.grey-out {
     opacity: 0.5;
     pointer-events: none;
-  }
+}
+
+@media only screen and (max-width: 600px) {
+    .todo-todo {
+        font-size: 24px;
+        margin-left: 20px;
+    }
+}
